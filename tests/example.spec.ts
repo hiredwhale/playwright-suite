@@ -74,6 +74,18 @@ test('user can login with valid credentials', async ({ page }) => {
   await expect(home.loggedIn).toContainText(username);
 });
 
+test('user is unable login with invalid credentials', async ({ page }) => {
+  let email = 'tester-login@fakedomain.fake';
+  let password = 'Qwerty12#';
+
+  const login = new LoginPage(page);
+
+  await home.clickSignUpLoginHeaderLink();
+  await login.fillOutLoginFields(email, password);
+
+  await expect(login.loginError).toBeVisible();
+});
+
 test('user can fill out contact us form', async ({ page }) => {
   let name = 'Automation Tester';
   let email = 'AutomationTester@faketestdomain.com';

@@ -3,11 +3,13 @@ import { Navigation } from './navigation';
 
 export class LoginPage extends Navigation {
     readonly urlExt: string;
+    readonly loginError: Locator;
 
     constructor(page: Page) {
         super(page);
 
         this.urlExt = '/login';
+        this.loginError = page.getByText('Your email or password is incorrect!');
     }
 
     async goto() {
