@@ -9,6 +9,13 @@ import { AccountCreatedPage } from '../pages/account-created-page';
 import { HomePage } from '../pages/home-page';
 import { DeleteAccountPage } from '../pages/delete-account-page';
 
+var home: HomePage;
+
+test.beforeEach(async ({ page }) => {
+  home = new HomePage(page);
+  await home.goto();
+});
+
 test('user can register an account', async ({ page }) => {
   let first_name = 'Automation';
   let last_name = 'Tester';
@@ -16,8 +23,8 @@ test('user can register an account', async ({ page }) => {
 
   let random = Math.floor(Math.random() * 100) + 1;
   let email = `tester${random}@fakedomain.fake`;
-  let title = 'Mr.'
-  let password = 'Qwerty1@3'
+  let title = 'Mr.';
+  let password = 'Qwerty1@3';
   let day = '13';
   let month = 'April';
   let year = '1993';
@@ -29,13 +36,11 @@ test('user can register an account', async ({ page }) => {
   let zipCode = '10001';
   let mobile = '212-555-1234';
 
-  const home = new HomePage(page);
   const login = new LoginPage(page);
   const signup = new SignupPage(page);
   const created = new AccountCreatedPage(page);
   const deleted = new DeleteAccountPage(page);
 
-  await home.goto();
   await home.clickSignUpLoginHeaderLink();
   await login.fillOutSignUpFields(username, email);
 
@@ -64,8 +69,7 @@ test('user can fill out contact us form', async ({ page }) => {
 
   const contact = new ContactUsPage(page);
 
-  await page.goto('/');
-  await contact.clickContactUsHeaderLink();
+  await home.clickContactUsHeaderLink();
   await contact.fillOutContactUsForm(name, email, subject, message);
   await expect(contact.success).toBeVisible();
 });
@@ -75,8 +79,6 @@ test('user can add a product to the cart', async ({ page }) => {
   const details = new ProductsDetailsPage(page);
   const cart = new CartPage(page);
   let productName = 'Winter Top';
-
-  await page.goto('/');
 
   await products.clickProductsHeaderLink();
   await products.searchForProduct(productName);
