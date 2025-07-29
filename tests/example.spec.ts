@@ -86,6 +86,23 @@ test('user is unable login with invalid credentials', async ({ page }) => {
   await expect(login.loginError).toBeVisible();
 });
 
+test('user can logout', async ({ page }) => {
+  let email = 'tester_login@fakedomain.fake';
+  let password = 'Qwerty1@3';
+  let username = 'TesterLogin123';
+
+  const login = new LoginPage(page);
+
+  await home.clickSignUpLoginHeaderLink();
+  await login.fillOutLoginFields(email, password);
+
+  await expect(home.loggedIn).toContainText(username);
+  await home.clickLogoutLink();
+
+  let currentUrl = page.url();
+  expect(currentUrl).toContain(login.urlExt);
+});
+
 test('user can fill out contact us form', async ({ page }) => {
   let name = 'Automation Tester';
   let email = 'AutomationTester@faketestdomain.com';

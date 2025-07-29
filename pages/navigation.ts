@@ -19,6 +19,11 @@ export class Navigation {
         return this.page.waitForLoadState('load');
     }
 
+    async clickLogoutLink() {
+        await this.page.getByRole('link', { name: 'Logout' }).click();
+        return this.page.waitForLoadState('load');
+    }
+
     async clickDeleteAccountLink() {
         await this.page.getByRole('link', { name: 'Delete Account' }).click();
         return this.page.waitForLoadState('load');
