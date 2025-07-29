@@ -14,6 +14,18 @@ export class LoginPage extends Navigation {
         return this.page.goto(this.urlExt);
     }
 
+    async sendKeysToLoginEmailField(email: string) {
+        return this.page.getByTestId('login-email').fill(email);
+    }
+
+    async sendKeysToLoginPasswordField(email: string) {
+        return this.page.getByTestId('login-password').fill(email);
+    }
+
+    async clickLoginButton() {
+        return this.page.getByTestId('login-button').click();
+    }
+
     async sendKeysToSignUpNameField(name: string) {
         return this.page.getByTestId('signup-name').fill(name);
     }
@@ -24,6 +36,12 @@ export class LoginPage extends Navigation {
 
     async clickSignUpButton() {
         return this.page.getByTestId('signup-button').click();
+    }
+
+    async fillOutLoginFields(email: string, password: string) {
+        await this.sendKeysToLoginEmailField(email);
+        await this.sendKeysToLoginPasswordField(password);
+        return this.clickLoginButton();
     }
 
     async fillOutSignUpFields(name: string, email: string) {

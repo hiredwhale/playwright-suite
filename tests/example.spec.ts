@@ -61,6 +61,19 @@ test('user can register an account', async ({ page }) => {
   await deleted.clickContinueButton();
 });
 
+test('user can login with valid credentials', async ({ page }) => {
+  let email = 'tester_login@fakedomain.fake';
+  let password = 'Qwerty1@3';
+  let username = 'TesterLogin123';
+
+  const login = new LoginPage(page);
+
+  await home.clickSignUpLoginHeaderLink();
+  await login.fillOutLoginFields(email, password);
+
+  await expect(home.loggedIn).toContainText(username);
+});
+
 test('user can fill out contact us form', async ({ page }) => {
   let name = 'Automation Tester';
   let email = 'AutomationTester@faketestdomain.com';
