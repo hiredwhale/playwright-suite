@@ -103,7 +103,7 @@ test('user can logout', async ({ page }) => {
   expect(currentUrl).toContain(login.urlExt);
 });
 
-test('user is unable to sign up with an existing email', async ({ page }) => {
+test('user is unable to sign up with a duplicate email', async ({ page }) => {
   let username = 'ExistingEmail';
   let email = 'tester_login@fakedomain.fake';
 
