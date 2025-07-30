@@ -75,7 +75,7 @@ test('user can login with valid credentials', async ({ page }) => {
 });
 
 test('user is unable login with invalid credentials', async ({ page }) => {
-  let email = 'tester-login@fakedomain.fake';
+  let email = 'tester_login@fakedomain.fake';
   let password = 'Qwerty12#';
 
   const login = new LoginPage(page);
@@ -101,6 +101,18 @@ test('user can logout', async ({ page }) => {
 
   let currentUrl = page.url();
   expect(currentUrl).toContain(login.urlExt);
+});
+
+test('user is unable to sign up with an existing email', async ({ page }) => {
+  let username = 'ExistingEmail';
+  let email = 'tester_login@fakedomain.fake';
+
+  const login = new LoginPage(page);
+
+  await home.clickSignUpLoginHeaderLink();
+  await login.fillOutSignUpFields(username, email);
+
+  await expect(login.signupError).toBeVisible();
 });
 
 test('user can fill out contact us form', async ({ page }) => {

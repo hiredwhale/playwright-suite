@@ -4,12 +4,14 @@ import { Navigation } from './navigation';
 export class LoginPage extends Navigation {
     readonly urlExt: string;
     readonly loginError: Locator;
+    readonly signupError: Locator;
 
     constructor(page: Page) {
         super(page);
 
         this.urlExt = '/login';
         this.loginError = page.getByText('Your email or password is incorrect!');
+        this.signupError = page.getByText('Email address already exist!');
     }
 
     async goto() {
