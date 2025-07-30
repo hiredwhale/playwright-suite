@@ -38,6 +38,10 @@ export class ContactUsPage extends Navigation {
         return this.page.getByTestId('submit-button').click();
     }
 
+    async clickHomeButton() {
+        return this.page.locator('.btn-success', { hasText: 'Home' }).click();
+    }
+
     async fillOutContactUsForm(name: string, email: string, subject: string, message: string) {
         this.page.on('dialog', async (dialog) => await dialog.accept() );
 

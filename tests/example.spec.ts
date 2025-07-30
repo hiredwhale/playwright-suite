@@ -99,8 +99,7 @@ test('user can logout', async ({ page }) => {
   await expect(home.loggedIn).toContainText(username);
   await home.clickLogoutLink();
 
-  let currentUrl = page.url();
-  expect(currentUrl).toContain(login.urlExt);
+  expect(page.url()).toContain(login.urlExt);
 });
 
 test('user is unable to sign up with a duplicate email', async ({ page }) => {
@@ -126,6 +125,9 @@ test('user can fill out contact us form', async ({ page }) => {
   await home.clickContactUsHeaderLink();
   await contact.fillOutContactUsForm(name, email, subject, message);
   await expect(contact.success).toBeVisible();
+
+  await contact.clickHomeButton();
+  await expect(home.carousel).toBeVisible();
 });
 
 test('user can add a product to the cart', async ({ page }) => {

@@ -3,11 +3,13 @@ import { Navigation } from './navigation';
 
 export class HomePage extends Navigation {
     readonly urlExt: string;
+    readonly carousel: Locator;
 
     constructor(page: Page) {
         super(page);
 
         this.urlExt = '/';
+        this.carousel = page.locator('#slider #slider-carousel')
     }
 
     async goto() {
