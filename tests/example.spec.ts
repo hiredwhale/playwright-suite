@@ -138,6 +138,26 @@ test('user can reach test cases page', async ({ page }) => {
   expect(page.url()).toContain(tests.urlExt);
 });
 
+test('user can reach product details page through all products page', async ({ page }) => {
+  const products = new ProductsPage(page);
+  const details = new ProductsDetailsPage(page);
+
+  await home.clickProductsHeaderLink();
+  expect(page.url()).toContain(products.urlExt);
+  await expect(products.productListHeaderLocator).toHaveText(
+    'All Products',
+    { ignoreCase: true }
+  );
+
+  await products.clickFirstViewProduct();
+  await expect(details.nameLocator).toBeVisible();
+  await expect(details.priceLocator).toBeVisible();
+  await expect(details.categoryLocator).toBeVisible();
+  await expect(details.availabilityLocator).toBeVisible();
+  await expect(details.conditionLocator).toBeVisible();
+  await expect(details.brandLocator).toBeVisible();
+});
+
 test('user can add a product to the cart', async ({ page }) => {
   const products = new ProductsPage(page);
   const details = new ProductsDetailsPage(page);
