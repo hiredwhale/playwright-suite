@@ -4,12 +4,14 @@ import { Navigation } from './navigation';
 export class ProductsPage extends Navigation {
     readonly urlExt: string;
     readonly productListHeaderLocator: Locator;
+    readonly productName: Locator;
 
     constructor(page: Page) {
         super(page);
 
         this.urlExt = '/products';
         this.productListHeaderLocator = page.locator('h2.title');
+        this.productName = page.locator('.productinfo p')
     }
 
     async goto() {
