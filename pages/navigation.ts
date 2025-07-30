@@ -1,4 +1,4 @@
-import { expect, type Locator, type Page } from '@playwright/test';
+import { type Locator, type Page } from '@playwright/test';
 
 export class Navigation {
     readonly page: Page;
@@ -19,6 +19,11 @@ export class Navigation {
         return this.page.waitForLoadState('load');
     }
 
+    async clickSignUpLoginHeaderLink() {
+        await this.page.getByRole('link', { name: 'Signup / Login' }).click();
+        return this.page.waitForLoadState('load');
+    }
+
     async clickLogoutLink() {
         await this.page.getByRole('link', { name: 'Logout' }).click();
         return this.page.waitForLoadState('load');
@@ -29,8 +34,10 @@ export class Navigation {
         return this.page.waitForLoadState('load');
     }
 
-    async clickSignUpLoginHeaderLink() {
-        await this.page.getByRole('link', { name: 'Signup / Login' }).click();
+    async clickTestCasesHeaderLink() {
+        await this.page
+            .getByRole('link', { name: 'Test Cases', exact: true })
+            .click();
         return this.page.waitForLoadState('load');
     }
 

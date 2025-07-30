@@ -1,15 +1,14 @@
 import { type Locator, type Page } from '@playwright/test';
 import { Navigation } from './navigation';
 
-export class HomePage extends Navigation {
+export class TestCasesPage extends Navigation {
     readonly urlExt: string;
     readonly carousel: Locator;
 
     constructor(page: Page) {
         super(page);
 
-        this.urlExt = '/';
-        this.carousel = page.locator('#slider #slider-carousel');
+        this.urlExt = '/test_cases';
     }
 
     async goto() {

@@ -8,6 +8,7 @@ import { SignupPage } from '../pages/signup-page';
 import { AccountCreatedPage } from '../pages/account-created-page';
 import { HomePage } from '../pages/home-page';
 import { DeleteAccountPage } from '../pages/delete-account-page';
+import { TestCasesPage } from '../pages/test-cases-page';
 
 var home: HomePage;
 
@@ -128,6 +129,13 @@ test('user can fill out contact us form', async ({ page }) => {
 
   await contact.clickHomeButton();
   await expect(home.carousel).toBeVisible();
+});
+
+test('user can reach test cases page', async ({ page }) => {
+  const tests = new TestCasesPage(page);
+
+  await home.clickTestCasesHeaderLink();
+  expect(page.url()).toContain(tests.urlExt);
 });
 
 test('user can add a product to the cart', async ({ page }) => {
