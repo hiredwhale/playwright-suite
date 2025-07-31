@@ -149,7 +149,7 @@ test('user can reach product details page through all products page', async ({ p
   await expect(products.productListHeaderLocator)
     .toHaveText('All Products', { ignoreCase: true });
 
-  await products.clickFirstViewProduct();
+  await products.clickFirstViewProductInList();
   await expect(details.nameLocator).toBeVisible();
   await expect(details.priceLocator).toBeVisible();
   await expect(details.categoryLocator).toBeVisible();
@@ -192,18 +192,21 @@ test('user can add a product to the cart', async ({ page }) => {
 
   await products.clickProductsHeaderLink();
   await products.searchForProduct(product1);
-  await products.addFirstProductToCart();
+  await products.addFirstProductInListToCart();
   await products.clickContinueShoppingButton();
 
   await products.searchForProduct(product2);
-  await products.addFirstProductToCart();
+  await products.addFirstProductInListToCart();
   await products.clickViewCartLink();
 
-  let firstProductInCart = await cart.getProductNameLocator(1);
+  let productNames = cart.productNames;
+  await expect(productNames).toHaveCount(2);
+
+  let firstProductInCart = productNames.nth(0);
   await expect(firstProductInCart).toBeVisible();
   await expect(firstProductInCart).toHaveText(product1);
 
-  let secondProductInCart = await cart.getProductNameLocator(2);
+  let secondProductInCart = productNames.nth(1);
   await expect(secondProductInCart).toBeVisible();
   await expect(secondProductInCart).toHaveText(product2);
 });

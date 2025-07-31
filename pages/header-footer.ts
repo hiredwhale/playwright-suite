@@ -38,7 +38,7 @@ export class HeaderFooter {
 
     async clickTestCasesHeaderLink() {
         await this.page
-            .getByRole('link', { name: 'Test Cases', exact: true })
+            .locator('.navbar-nav a', { hasText: 'Test Cases' })
             .click();
         return this.page.waitForLoadState('load');
     }

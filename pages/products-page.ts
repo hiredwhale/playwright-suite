@@ -27,12 +27,12 @@ export class ProductsPage extends HeaderFooter {
         await this.page.waitForLoadState('load');
     }
 
-    async addFirstProductToCart() {
+    async addFirstProductInListToCart() {
         await this.page.locator('.single-products').first().hover();
         return this.page.locator('.product-overlay .add-to-cart').first().click();
     }
 
-    async clickFirstViewProduct() {
+    async clickFirstViewProductInList() {
         return this.page
             .getByRole('link', { name: 'View Product' })
             .first()
