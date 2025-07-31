@@ -1,7 +1,7 @@
 import { type Locator, type Page } from '@playwright/test';
-import { Navigation } from './navigation';
+import { HeaderFooter } from './header-footer';
 
-export class TestCasesPage extends Navigation {
+export class TestCasesPage extends HeaderFooter {
     readonly urlExt: string;
     readonly carousel: Locator;
 

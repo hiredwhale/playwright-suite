@@ -1,12 +1,14 @@
 import { type Locator, type Page } from '@playwright/test';
 
-export class Navigation {
+export class HeaderFooter {
     readonly page: Page;
     readonly loggedIn: Locator;
+    readonly subscribedLocator: Locator;
 
     constructor(page: Page) {
         this.page = page;
         this.loggedIn = page.locator('.navbar-nav a', { hasText: /Logged in as/ });
+        this.subscribedLocator = page.locator('#success-subscribe');
     }
 
     async clickProductsHeaderLink() {
@@ -44,5 +46,18 @@ export class Navigation {
     async clickContactUsHeaderLink() {
         await this.page.getByRole('link', { name: 'Contact us' }).click();
         return this.page.waitForLoadState('load');
+    }
+
+    async sendKeysToSubscriptionEmailField(email: string) {
+        return this.page.getByPlaceholder('Your email address').fill(email);
+    }
+
+    async clickSubscribeButton() {
+        return this.page.locator('#subscribe').click();
+    }
+
+    async subscribeToUpdates(email: string) {
+        await this.sendKeysToSubscriptionEmailField(email);
+        return this.clickSubscribeButton();
     }
 }

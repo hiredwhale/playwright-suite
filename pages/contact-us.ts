@@ -1,17 +1,15 @@
 import { type Locator, type Page } from '@playwright/test';
-import { Navigation } from './navigation';
+import { HeaderFooter } from './header-footer';
 
-const successMessage = 'Success! Your details have been submitted successfully.';
-
-export class ContactUsPage extends Navigation {
+export class ContactUsPage extends HeaderFooter {
     readonly urlExt: string;
-    readonly success: Locator;
+    readonly successLocator: Locator;
 
     constructor(page: Page) {
         super(page);
 
         this.urlExt = '/contact_us';
-        this.success = page.locator('.status', { hasText: successMessage });
+        this.successLocator = page.locator('.status');
     }
 
     async goto() {

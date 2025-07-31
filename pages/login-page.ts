@@ -1,7 +1,7 @@
 import { type Locator, type Page } from '@playwright/test';
-import { Navigation } from './navigation';
+import { HeaderFooter } from './header-footer';
 
-export class LoginPage extends Navigation {
+export class LoginPage extends HeaderFooter {
     readonly urlExt: string;
     readonly loginError: Locator;
     readonly signupError: Locator;

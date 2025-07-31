@@ -120,12 +120,14 @@ test('user can fill out contact us form', async ({ page }) => {
   let email = 'AutomationTester@faketestdomain.com';
   let subject = 'A subject.';
   let message = 'This is a message.';
+  let success = 'Success! Your details have been submitted successfully.';
 
   const contact = new ContactUsPage(page);
 
   await home.clickContactUsHeaderLink();
   await contact.fillOutContactUsForm(name, email, subject, message);
-  await expect(contact.success).toBeVisible();
+  await expect(contact.successLocator).toBeVisible();
+  await expect(contact.successLocator).toHaveText(success);
 
   await contact.clickHomeButton();
   await expect(home.carousel).toBeVisible();
@@ -169,6 +171,17 @@ test('user can search for products on products page', async ({ page }) => {
     await expect(name).toBeVisible();
     await expect(name).toContainText('jeans', { ignoreCase: true });
   }
+});
+
+test('user can subscribe to updates', async ({ page }) => {
+  let email = 'tester_login@fakedomain.fake';
+  const message = 'You have been successfully subscribed!';
+
+  await home.clickSignUpLoginHeaderLink();
+  await home.subscribeToUpdates(email);
+
+  await expect(home.subscribedLocator).toBeVisible();
+  await expect(home.subscribedLocator).toHaveText(message);
 });
 
 test('user can add a product to the cart', async ({ page }) => {

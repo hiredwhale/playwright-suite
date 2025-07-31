@@ -1,7 +1,7 @@
 import { type Locator, type Page } from '@playwright/test';
-import { Navigation } from './navigation';
+import { HeaderFooter } from './header-footer';
 
-export class DeleteAccountPage extends Navigation {
+export class DeleteAccountPage extends HeaderFooter {
     readonly urlExt: string;
     readonly deleteAccountLocator: Locator;
 
