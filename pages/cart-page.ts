@@ -14,7 +14,7 @@ export class CartPage extends HeaderFooter {
         return this.page.goto(this.urlExt);
     }
 
-    async getProductNameLocator(product: string) {
-        return this.page.getByRole('heading', { name: product });
+    async getProductNameLocator(row: number = 1) {
+        return this.page.locator(`tbody h4`).nth(row - 1);
     }
 }

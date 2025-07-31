@@ -23,13 +23,32 @@ export class ProductsPage extends HeaderFooter {
     }
 
     async clickSearchButton() {
-        return this.page.locator('button#submit_search').click();
+        await this.page.locator('button#submit_search').click();
+        await this.page.waitForLoadState('load');
+    }
+
+    async addFirstProductToCart() {
+        await this.page.locator('.single-products').first().hover();
+        return this.page.locator('.product-overlay .add-to-cart').first().click();
     }
 
     async clickFirstViewProduct() {
         return this.page
             .getByRole('link', { name: 'View Product' })
             .first()
+            .click();
+    }
+
+    async clickViewCartLink() {
+        await this.page
+            .getByRole('link', { name: 'View Cart' })
+            .click();
+        return this.page.waitForLoadState('load');
+    }
+
+    async clickContinueShoppingButton() {
+        return this.page
+            .getByRole('button', { name: 'Continue Shopping' })
             .click();
     }
 

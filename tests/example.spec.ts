@@ -175,7 +175,7 @@ test('user can search for products on products page', async ({ page }) => {
 
 test('user can subscribe to updates', async ({ page }) => {
   let email = 'tester_login@fakedomain.fake';
-  const message = 'You have been successfully subscribed!';
+  let message = 'You have been successfully subscribed!';
 
   await home.clickSignUpLoginHeaderLink();
   await home.subscribeToUpdates(email);
@@ -186,17 +186,24 @@ test('user can subscribe to updates', async ({ page }) => {
 
 test('user can add a product to the cart', async ({ page }) => {
   const products = new ProductsPage(page);
-  const details = new ProductsDetailsPage(page);
   const cart = new CartPage(page);
-  let productName = 'Winter Top';
+  let product1 = 'Winter Top';
+  let product2 = 'Fancy Green Top';
 
   await products.clickProductsHeaderLink();
-  await products.searchForProduct(productName);
-  await products.clickFirstViewProduct();
+  await products.searchForProduct(product1);
+  await products.addFirstProductToCart();
+  await products.clickContinueShoppingButton();
 
-  await details.clickAddToCartButton();
-  await details.clickViewCartLink();
+  await products.searchForProduct(product2);
+  await products.addFirstProductToCart();
+  await products.clickViewCartLink();
 
-  let productInCart = await cart.getProductNameLocator(productName)
-  await expect(productInCart).toBeVisible();
+  let firstProductInCart = await cart.getProductNameLocator(1);
+  await expect(firstProductInCart).toBeVisible();
+  await expect(firstProductInCart).toHaveText(product1);
+
+  let secondProductInCart = await cart.getProductNameLocator(2);
+  await expect(secondProductInCart).toBeVisible();
+  await expect(secondProductInCart).toHaveText(product2);
 });
