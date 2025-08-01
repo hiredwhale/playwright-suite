@@ -190,7 +190,7 @@ test('user can add a product to the cart', async ({ page }) => {
   let product1 = 'Winter Top';
   let product2 = 'Fancy Green Top';
 
-  await products.clickProductsHeaderLink();
+  await home.clickProductsHeaderLink();
   await products.searchForProduct(product1);
   await products.addFirstProductInListToCart();
   await products.clickContinueShoppingButton();
@@ -209,4 +209,19 @@ test('user can add a product to the cart', async ({ page }) => {
   let secondProductInCart = productNames.nth(1);
   await expect(secondProductInCart).toBeVisible();
   await expect(secondProductInCart).toHaveText(product2);
+});
+
+test('user can add multiple of a product to the cart', async ({ page }) => {
+  const details = new ProductsDetailsPage(page);
+  const cart = new CartPage(page);
+  let quantity = '4';
+
+  await home.clickFirstViewProductInList();
+  await details.sendTextToQuantityField(quantity);
+  await details.clickAddToCartButton();
+  await details.clickViewCartLink();
+
+  let quantityInCart = cart.quantity;
+  await expect(quantityInCart).toBeVisible();
+  await expect(quantityInCart).toHaveText(quantity);
 });

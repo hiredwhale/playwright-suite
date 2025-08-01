@@ -15,4 +15,11 @@ export class HomePage extends HeaderFooter {
     async goto() {
         return this.page.goto(this.urlExt);
     }
+
+    async clickFirstViewProductInList() {
+        return this.page
+            .getByRole('link', { name: 'View Product' })
+            .first()
+            .click();
+    }
 }

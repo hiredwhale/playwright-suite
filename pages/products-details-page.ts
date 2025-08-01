@@ -40,6 +40,10 @@ export class ProductsDetailsPage extends HeaderFooter {
             .click();
     }
 
+    async sendTextToQuantityField(amount: string) {
+        return this.page.locator('#quantity').fill(amount);
+    }
+
     async clickViewCartLink() {
         return this.page.getByRole('link', { name: 'View Cart' }).click();
     }
